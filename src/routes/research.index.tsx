@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { getPublishedArticles, getCategories } from "@/lib/data";
 
-export const Route = createFileRoute("/research")({
+export const Route = createFileRoute("/research/")({
   head: () => ({
     meta: [
       { title: "پژوهش‌ها و مقالات | ستایش رحمانی" },
