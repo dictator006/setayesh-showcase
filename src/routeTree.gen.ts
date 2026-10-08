@@ -10,33 +10,172 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminActivitiesRouteImport } from './routes/admin.activities'
+import { Route as AdminArticlesRouteImport } from './routes/admin.articles'
+import { Route as AdminAwardsRouteImport } from './routes/admin.awards'
+import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as ResearchIndexRouteImport } from './routes/research.index'
+import { Route as ResearchSlugRouteImport } from './routes/research.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminActivitiesRoute = AdminActivitiesRouteImport.update({
+  id: '/activities',
+  path: '/activities',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminArticlesRoute = AdminArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAwardsRoute = AdminAwardsRouteImport.update({
+  id: '/awards',
+  path: '/awards',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ResearchIndexRoute = ResearchIndexRouteImport.update({
+  id: '/research/',
+  path: '/research/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchSlugRoute = ResearchSlugRouteImport.update({
+  id: '/research/$slug',
+  path: '/research/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/admin/activities': typeof AdminActivitiesRoute
+  '/admin/articles': typeof AdminArticlesRoute
+  '/admin/awards': typeof AdminAwardsRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/research/$slug': typeof ResearchSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/admin/activities': typeof AdminActivitiesRoute
+  '/admin/articles': typeof AdminArticlesRoute
+  '/admin/awards': typeof AdminAwardsRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/research/$slug': typeof ResearchSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/research': typeof ResearchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/admin/activities': typeof AdminActivitiesRoute
+  '/admin/articles': typeof AdminArticlesRoute
+  '/admin/awards': typeof AdminAwardsRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/research/$slug': typeof ResearchSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/admin/activities'
+    | '/admin/articles'
+    | '/admin/awards'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/research/$slug'
+    | '/admin/'
+    | '/research/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/admin/activities'
+    | '/admin/articles'
+    | '/admin/awards'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/research/$slug'
+    | '/admin'
+    | '/research'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/admin/activities'
+    | '/admin/articles'
+    | '/admin/awards'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/research/$slug'
+    | '/admin/'
+    | '/research/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  ResearchSlugRoute: typeof ResearchSlugRoute
+  ResearchIndexRoute: typeof ResearchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +187,113 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/activities': {
+      id: '/admin/activities'
+      path: '/activities'
+      fullPath: '/admin/activities'
+      preLoaderRoute: typeof AdminActivitiesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/articles': {
+      id: '/admin/articles'
+      path: '/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AdminArticlesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/awards': {
+      id: '/admin/awards'
+      path: '/awards'
+      fullPath: '/admin/awards'
+      preLoaderRoute: typeof AdminAwardsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/research/': {
+      id: '/research/'
+      path: '/research'
+      fullPath: '/research/'
+      preLoaderRoute: typeof ResearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/$slug': {
+      id: '/research/$slug'
+      path: '/research/$slug'
+      fullPath: '/research/$slug'
+      preLoaderRoute: typeof ResearchSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminActivitiesRoute: typeof AdminActivitiesRoute
+  AdminArticlesRoute: typeof AdminArticlesRoute
+  AdminAwardsRoute: typeof AdminAwardsRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminActivitiesRoute: AdminActivitiesRoute,
+  AdminArticlesRoute: AdminArticlesRoute,
+  AdminAwardsRoute: AdminAwardsRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  ContactRoute: ContactRoute,
+  ResearchSlugRoute: ResearchSlugRoute,
+  ResearchIndexRoute: ResearchIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
