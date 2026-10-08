@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { GraduationCap, Mail } from "lucide-react";
 
-export function Footer({ email }: { email?: string }) {
+export function Footer({ email }: { email?: string | undefined }) {
   return (
     <footer className="mt-20 border-t border-border bg-card">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">

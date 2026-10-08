@@ -91,9 +91,9 @@ function ContactPage() {
           <Card className="md:col-span-2">
             <CardContent className="p-6">
               <h2 className="font-bold text-foreground">اطلاعات تماس</h2>
-              {settings.data?.contact_email && (
+              {settings.data?.["contact_email"] && (
                 <a
-                  href={`mailto:${settings.data.contact_email}`}
+                  href={`mailto:${settings.data["contact_email"]}`}
                   className="mt-4 flex items-center gap-3 rounded-xl border border-border p-4 transition-colors hover:bg-accent"
                 >
                   <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -102,7 +102,7 @@ function ContactPage() {
                   <span>
                     <span className="block text-xs text-muted-foreground">ایمیل</span>
                     <span className="text-sm font-medium text-foreground" dir="ltr">
-                      {settings.data.contact_email}
+                      {settings.data["contact_email"]}
                     </span>
                   </span>
                 </a>
