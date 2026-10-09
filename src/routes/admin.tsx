@@ -75,7 +75,7 @@ function AdminLayout() {
   const nav = (
     <nav className="flex flex-col gap-1" aria-label="ناوبری مدیریت">
       {ADMIN_NAV.map((item) => {
-        const active = item.exact ? pathname === item.to : pathname.startsWith(item.to);
+        const active = "exact" in item && item.exact ? pathname === item.to : pathname.startsWith(item.to);
         return (
           <Link
             key={item.to}

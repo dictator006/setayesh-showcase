@@ -14,11 +14,14 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAboutRouteImport } from './routes/admin.about'
 import { Route as AdminActivitiesRouteImport } from './routes/admin.activities'
 import { Route as AdminArticlesRouteImport } from './routes/admin.articles'
 import { Route as AdminAwardsRouteImport } from './routes/admin.awards'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as ResearchIndexRouteImport } from './routes/research.index'
 import { Route as ResearchSlugRouteImport } from './routes/research.$slug'
 
@@ -47,6 +50,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAboutRoute = AdminAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminActivitiesRoute = AdminActivitiesRouteImport.update({
   id: '/activities',
   path: '/activities',
@@ -72,6 +80,16 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ResearchIndexRoute = ResearchIndexRouteImport.update({
   id: '/research/',
   path: '/research/',
@@ -88,11 +106,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/admin/about': typeof AdminAboutRoute
   '/admin/activities': typeof AdminActivitiesRoute
   '/admin/articles': typeof AdminArticlesRoute
   '/admin/awards': typeof AdminAwardsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/research/$slug': typeof ResearchSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/research/': typeof ResearchIndexRoute
@@ -101,11 +122,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/admin/about': typeof AdminAboutRoute
   '/admin/activities': typeof AdminActivitiesRoute
   '/admin/articles': typeof AdminArticlesRoute
   '/admin/awards': typeof AdminAwardsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/research/$slug': typeof ResearchSlugRoute
   '/admin': typeof AdminIndexRoute
   '/research': typeof ResearchIndexRoute
@@ -116,11 +140,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/admin/about': typeof AdminAboutRoute
   '/admin/activities': typeof AdminActivitiesRoute
   '/admin/articles': typeof AdminArticlesRoute
   '/admin/awards': typeof AdminAwardsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/research/$slug': typeof ResearchSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/research/': typeof ResearchIndexRoute
@@ -132,11 +159,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/contact'
+    | '/admin/about'
     | '/admin/activities'
     | '/admin/articles'
     | '/admin/awards'
     | '/admin/categories'
     | '/admin/login'
+    | '/admin/messages'
+    | '/admin/settings'
     | '/research/$slug'
     | '/admin/'
     | '/research/'
@@ -145,11 +175,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/admin/about'
     | '/admin/activities'
     | '/admin/articles'
     | '/admin/awards'
     | '/admin/categories'
     | '/admin/login'
+    | '/admin/messages'
+    | '/admin/settings'
     | '/research/$slug'
     | '/admin'
     | '/research'
@@ -159,11 +192,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/contact'
+    | '/admin/about'
     | '/admin/activities'
     | '/admin/articles'
     | '/admin/awards'
     | '/admin/categories'
     | '/admin/login'
+    | '/admin/messages'
+    | '/admin/settings'
     | '/research/$slug'
     | '/admin/'
     | '/research/'
@@ -215,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/about': {
+      id: '/admin/about'
+      path: '/about'
+      fullPath: '/admin/about'
+      preLoaderRoute: typeof AdminAboutRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/activities': {
       id: '/admin/activities'
       path: '/activities'
@@ -250,6 +293,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/research/': {
       id: '/research/'
       path: '/research'
@@ -268,20 +325,26 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAboutRoute: typeof AdminAboutRoute
   AdminActivitiesRoute: typeof AdminActivitiesRoute
   AdminArticlesRoute: typeof AdminArticlesRoute
   AdminAwardsRoute: typeof AdminAwardsRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAboutRoute: AdminAboutRoute,
   AdminActivitiesRoute: AdminActivitiesRoute,
   AdminArticlesRoute: AdminArticlesRoute,
   AdminAwardsRoute: AdminAwardsRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
