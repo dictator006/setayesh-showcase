@@ -21,7 +21,7 @@ export const Route = createFileRoute("/admin/login")({
 
 function AdminLoginPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -30,9 +30,10 @@ function AdminLoginPage() {
     if (loading) return;
     setLoading(true);
     try {
+      const email = `${username.trim().toLowerCase()}@rahmani.app`;
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
-        toast.error("ایمیل یا رمز عبور اشتباه است.");
+        toast.error("نام کاربری یا رمز عبور اشتباه است.");
         return;
       }
       if (!data.user || !(await isAdmin(data.user.id))) {
@@ -54,14 +55,15 @@ function AdminLoginPage() {
           <h1 className="text-center text-xl font-bold text-foreground">ورود به پنل مدیریت</h1>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">ایمیل</Label>
+              <Label htmlFor="username">نام کاربری</Label>
               <Input
-                id="email"
-                type="email"
+                id="username"
+                type="text"
                 dir="ltr"
                 className="text-left"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 disabled={loading}
               />

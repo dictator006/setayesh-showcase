@@ -43,7 +43,10 @@ function AdminLayout() {
   const [status, setStatus] = useState<"loading" | "ok">("loading");
   const [open, setOpen] = useState(false);
 
+  const isLoginPage = pathname === "/admin/login";
+
   useEffect(() => {
+    if (isLoginPage) return;
     let cancelled = false;
     (async () => {
       const { data } = await supabase.auth.getUser();
@@ -57,7 +60,11 @@ function AdminLayout() {
     return () => {
       cancelled = true;
     };
-  }, [navigate]);
+  }, [navigate, isLoginPage]);
+
+  if (isLoginPage) {
+    return <Outlet />;
+  }
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
