@@ -30,7 +30,7 @@ function AdminLoginPage() {
     if (loading) return;
     setLoading(true);
     try {
-      const email = `${username.trim().toLowerCase()}@app.local`;
+      const email = `${username.trim().toLowerCase()}@rahmani.app`;
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         toast.error("نام کاربری یا رمز عبور اشتباه است.");
