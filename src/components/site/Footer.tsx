@@ -23,6 +23,7 @@ export function Footer({ email }: { email?: string | undefined }) {
             <li><Link to="/about" className="transition-colors hover:text-foreground">درباره من</Link></li>
             <li><Link to="/research" className="transition-colors hover:text-foreground">پژوهش‌ها</Link></li>
             <li><Link to="/contact" className="transition-colors hover:text-foreground">تماس</Link></li>
+            <li><Link to="/admin/login" className="transition-colors hover:text-foreground">ورود مدیریت</Link></li>
           </ul>
         </div>
         <div>
