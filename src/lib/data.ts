@@ -1,6 +1,16 @@
 import { supabase } from "@/integrations/supabase/client";
+import brainImage from "@/assets/neuroscience.jpg";
+import learningImage from "@/assets/deep-learning.jpg";
+import computationalImage from "@/assets/computational.jpg";
+
+export function articleImage(value: string | null): string | null {
+  const assets: Record<string, string> = { "asset:neuroscience": brainImage, "asset:deep-learning": learningImage, "asset:computational": computationalImage };
+  return value ? assets[value] ?? value : null;
+}
 
 export type Category = {
+  featured: boolean;
+  sort_order: number;
   id: string;
   name: string;
   slug: string;
@@ -42,6 +52,8 @@ export type ResearchActivity = {
 };
 
 export type ContactMessage = {
+  kind: string;
+  rating: number | null;
   id: string;
   full_name: string;
   email: string;
@@ -51,6 +63,10 @@ export type ContactMessage = {
 };
 
 export type About = {
+  short_bio: string | null;
+  social_links: Record<string, string>;
+  skill_levels: Record<string, string>;
+  image_path?: string | null;
   id: string;
   full_name: string;
   tagline: string | null;
@@ -66,7 +82,14 @@ export type About = {
 export async function getAbout(): Promise<About | null> {
   const { data, error } = await supabase.from("about").select("*").limit(1).maybeSingle();
   if (error) throw error;
-  return data as About | null;
+  const about = data as About | null;
+  if (about?.image_url?.startsWith("storage:")) {
+    const path = about.image_url.slice(8);
+    const { data: signed, error: imageError } = await supabase.storage.from("profile-images").createSignedUrl(path, 3600);
+    if (imageError) throw imageError;
+    return { ...about, image_path: about.image_url, image_url: signed.signedUrl };
+  }
+  return about;
 }
 
 export async function getCategories(): Promise<Category[]> {
@@ -139,6 +162,8 @@ export async function submitContactMessage(input: {
   full_name: string;
   email: string;
   message: string;
+  kind?: "contact" | "feedback";
+  rating?: number | null;
 }): Promise<void> {
   const { error } = await supabase.from("contact_messages").insert(input);
   if (error) throw error;

@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { CalendarDays, ArrowLeft, BookOpen } from "lucide-react";
+import { CalendarDays, ArrowLeft, BookOpen, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { formatDateFa, type Article } from "@/lib/data";
+import { readingMinutes } from "@/lib/profile";
+import { formatDateFa, articleImage, type Article } from "@/lib/data";
 
 export function ArticleCard({ article }: { article: Article }) {
   return (
@@ -15,7 +16,7 @@ export function ArticleCard({ article }: { article: Article }) {
         <div className="relative aspect-[16/9] overflow-hidden bg-muted">
           {article.image_url ? (
             <img
-              src={article.image_url}
+              src={articleImage(article.image_url) ?? undefined}
               alt={article.title}
               loading="lazy"
               width={640}
@@ -29,7 +30,7 @@ export function ArticleCard({ article }: { article: Article }) {
           )}
         </div>
         <CardContent className="p-5">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {article.categories && (
               <Badge variant="secondary">{article.categories.name}</Badge>
             )}
@@ -40,6 +41,7 @@ export function ArticleCard({ article }: { article: Article }) {
               </span>
             )}
           </div>
+          <span className="mt-2 flex items-center gap-1 text-xs text-muted-foreground"><Clock className="size-3.5" />{readingMinutes(article.content).toLocaleString("fa-IR")} دقیقه مطالعه</span>
           <h3 className="mt-3 line-clamp-2 text-lg font-bold leading-8 text-foreground transition-colors group-hover:text-primary">
             {article.title}
           </h3>
