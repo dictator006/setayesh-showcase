@@ -1,3 +1,4 @@
+import { adminHead } from "@/lib/metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -31,6 +32,7 @@ import {
 import { EmptyState } from "@/components/site/States";
 
 export const Route = createFileRoute("/admin/categories")({
+  head: () => adminHead("دسته‌بندی‌ها"),
   component: AdminCategories,
 });
 

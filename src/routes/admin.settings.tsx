@@ -1,3 +1,4 @@
+import { adminHead } from "@/lib/metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -12,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const Route = createFileRoute("/admin/settings")({
+  head: () => adminHead("تنظیمات"),
   component: AdminSettings,
 });
 

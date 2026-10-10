@@ -73,7 +73,7 @@ function AboutPage() {
               </CardContent>
             </section>
             <div className="mt-6"><ProfileLinks links={about.data.social_links} /></div>
-            <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-border py-6">{[["مقاله", articles.data?.length ?? 0], ["فعالیت پژوهشی", activities.data?.length ?? 0], ["افتخار", awards.data?.length ?? 0]].map(([label,value]) => <div key={label} className="text-center"><dd className="text-3xl font-bold text-primary">{toFaDigits(value)}</dd><dt className="mt-2 text-sm text-muted-foreground">{label}</dt></div>)}</dl>
+            <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-border py-6">{[["مقاله", articles.data?.length ?? 0], ["فعالیت پژوهشی", activities.data?.length ?? 0], ["افتخار", awards.data?.length ?? 0]].map(([label,value]) => <div key={label} className="text-center"><dd className="text-3xl font-bold text-primary">{toFaDigits(value ?? 0)}</dd><dt className="mt-2 text-sm text-muted-foreground">{label}</dt></div>)}</dl>
 
             {/* Education */}
             {about.data.education.length > 0 && (

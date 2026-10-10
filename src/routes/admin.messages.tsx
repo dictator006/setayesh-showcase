@@ -1,3 +1,4 @@
+import { adminHead } from "@/lib/metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -23,6 +24,7 @@ import { EmptyState } from "@/components/site/States";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/admin/messages")({
+  head: () => adminHead("پیام‌ها"),
   component: AdminMessages,
 });
 
