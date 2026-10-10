@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Mail, Award, FlaskConical, UserRound } from "lucide-react";
+import { ArrowLeft, Mail, Award, FlaskConical, UserRound, Brain, Network, Cpu, Activity, Scan, Layers } from "lucide-react";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { ArticleCardSkeleton, EmptyState } from "@/components/site/States";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   getAbout,
+  getCategories,
   getPublishedArticles,
   getAwards,
   getResearchActivities,
@@ -40,6 +42,8 @@ function HomePage() {
   const awards = useQuery({ queryKey: ["awards"], queryFn: getAwards });
   const activities = useQuery({ queryKey: ["activities"], queryFn: getResearchActivities });
 
+  const categories = useQuery({ queryKey: ["categories"], queryFn: getCategories });
+  const categoryIcons = [Brain, Cpu, Network, Layers, Scan, Activity];
   const latestArticles = (articles.data ?? []).slice(0, 3);
 
   return (
@@ -59,7 +63,7 @@ function HomePage() {
               ستایش رحمانی
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-8 text-muted-foreground md:mx-0">
-              {about.data?.bio
+              {about.data?.short_bio ? about.data.short_bio : about.data?.bio
                 ? about.data.bio.slice(0, 180) + (about.data.bio.length > 180 ? "…" : "")
                 : "معرفی فعالیت‌های علمی، مقالات پژوهشی و دستاوردهای آکادمیک."}
             </p>
@@ -96,8 +100,12 @@ function HomePage() {
         </div>
       </section>
 
+      <ScrollReveal><section className="mx-auto max-w-6xl px-4 py-10">
+        <h2 className="mb-6 text-2xl font-bold">حوزه‌های پژوهشی</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{(categories.data ?? []).filter(c => c.featured).sort((a,b) => a.sort_order - b.sort_order).slice(0,6).map((c,i) => { const Icon = categoryIcons[i] ?? Brain; return <ScrollReveal key={c.id}><Link to="/research" search={{ category: c.slug }} className="group flex h-full items-start gap-4 rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary focus-visible:ring-2 focus-visible:ring-ring"><Icon className="mt-1 size-7 shrink-0 text-primary" /><div><h3 className="font-bold group-hover:text-primary">{c.name}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{c.description}</p></div><ArrowLeft className="mr-auto mt-1 size-4 shrink-0 text-muted-foreground" /></Link></ScrollReveal>; })}</div>
+      </section></ScrollReveal>
       {/* Latest articles */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
+      <ScrollReveal><section className="mx-auto max-w-6xl px-4 py-14">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-foreground">آخرین مقالات پژوهشی</h2>
           <Button asChild variant="ghost" className="gap-1 text-primary">
@@ -118,14 +126,14 @@ function HomePage() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {latestArticles.map((a) => (
-              <ArticleCard key={a.id} article={a} />
+              <ScrollReveal key={a.id}><ArticleCard article={a} /></ScrollReveal>
             ))}
           </div>
         )}
-      </section>
+      </section></ScrollReveal>
 
       {/* Research activities */}
-      <section className="bg-secondary/50 py-14">
+      <ScrollReveal><section className="bg-secondary/50 py-14">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold text-foreground">
             <FlaskConical className="size-6 text-primary" />
@@ -160,10 +168,10 @@ function HomePage() {
             </div>
           )}
         </div>
-      </section>
+      </section></ScrollReveal>
 
       {/* Awards */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
+      <ScrollReveal><section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold text-foreground">
           <Award className="size-6 text-primary" />
           افتخارات و جوایز
@@ -199,7 +207,7 @@ function HomePage() {
             ))}
           </div>
         )}
-      </section>
+      </section></ScrollReveal>
     </SiteLayout>
   );
 }

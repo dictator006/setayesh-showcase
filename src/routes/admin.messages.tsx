@@ -94,7 +94,7 @@ function AdminMessages() {
                   <span className="text-xs text-muted-foreground" dir="ltr">
                     {m.email}
                   </span>
-                  {!m.is_read && <Badge>جدید</Badge>}
+                  {!m.is_read && <Badge>جدید</Badge>}<Badge variant="outline">{m.kind === "feedback" ? "بازخورد" : "تماس"}</Badge>{m.rating && <span className="text-sm text-primary">{m.rating.toLocaleString("fa-IR")} / ۵</span>}
                   <span className="mr-auto text-xs text-muted-foreground">
                     {formatDateFa(m.created_at)}
                   </span>
