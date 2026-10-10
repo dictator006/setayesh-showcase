@@ -23,7 +23,10 @@ export type Database = {
           full_name: string
           id: string
           image_url: string | null
+          short_bio: string | null
+          skill_levels: Json
           skills: Json
+          social_links: Json
           tagline: string | null
           updated_at: string
         }
@@ -35,7 +38,10 @@ export type Database = {
           full_name?: string
           id?: string
           image_url?: string | null
+          short_bio?: string | null
+          skill_levels?: Json
           skills?: Json
+          social_links?: Json
           tagline?: string | null
           updated_at?: string
         }
@@ -47,7 +53,10 @@ export type Database = {
           full_name?: string
           id?: string
           image_url?: string | null
+          short_bio?: string | null
+          skill_levels?: Json
           skills?: Json
+          social_links?: Json
           tagline?: string | null
           updated_at?: string
         }
@@ -134,23 +143,29 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          featured: boolean
           id: string
           name: string
           slug: string
+          sort_order: number
         }
         Insert: {
           created_at?: string
           description?: string | null
+          featured?: boolean
           id?: string
           name: string
           slug: string
+          sort_order?: number
         }
         Update: {
           created_at?: string
           description?: string | null
+          featured?: boolean
           id?: string
           name?: string
           slug?: string
+          sort_order?: number
         }
         Relationships: []
       }
@@ -161,7 +176,9 @@ export type Database = {
           full_name: string
           id: string
           is_read: boolean
+          kind: string
           message: string
+          rating: number | null
         }
         Insert: {
           created_at?: string
@@ -169,7 +186,9 @@ export type Database = {
           full_name: string
           id?: string
           is_read?: boolean
+          kind?: string
           message: string
+          rating?: number | null
         }
         Update: {
           created_at?: string
@@ -177,7 +196,9 @@ export type Database = {
           full_name?: string
           id?: string
           is_read?: boolean
+          kind?: string
           message?: string
+          rating?: number | null
         }
         Relationships: []
       }
