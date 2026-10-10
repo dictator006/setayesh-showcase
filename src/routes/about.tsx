@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { GraduationCap, Briefcase, Sparkles, UserRound, Award, FlaskConical } from "lucide-react";
+import { ProfileLinks } from "@/components/site/ProfileLinks";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { EmptyState, ErrorState } from "@/components/site/States";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getAbout, getAwards, getResearchActivities, formatDateFa } from "@/lib/data";
+import { getAbout, getAwards, getResearchActivities, formatDateFa, getPublishedArticles, toFaDigits } from "@/lib/data";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -27,6 +28,8 @@ function AboutPage() {
   const awards = useQuery({ queryKey: ["awards"], queryFn: getAwards });
   const activities = useQuery({ queryKey: ["activities"], queryFn: getResearchActivities });
 
+  const articles = useQuery({ queryKey: ["articles", "published"], queryFn: getPublishedArticles });
+
   return (
     <SiteLayout>
       <div className="mx-auto max-w-4xl px-4 py-14">
@@ -43,9 +46,9 @@ function AboutPage() {
           </div>
         ) : about.data ? (
           <>
-            <Card className="mt-8 overflow-hidden">
+            <section className="mt-8 overflow-hidden border-b border-border">
               <CardContent className="flex flex-col items-center gap-6 p-8 md:flex-row md:items-start">
-                <div className="flex size-36 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-muted">
+                <div className="flex size-36 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted">
                   {about.data.image_url ? (
                     <img
                       src={about.data.image_url}
@@ -68,7 +71,9 @@ function AboutPage() {
                   )}
                 </div>
               </CardContent>
-            </Card>
+            </section>
+            <div className="mt-6"><ProfileLinks links={about.data.social_links} /></div>
+            <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-border py-6">{[["مقاله", articles.data?.length ?? 0], ["فعالیت پژوهشی", activities.data?.length ?? 0], ["افتخار", awards.data?.length ?? 0]].map(([label,value]) => <div key={label} className="text-center"><dd className="text-3xl font-bold text-primary">{toFaDigits(value ?? 0)}</dd><dt className="mt-2 text-sm text-muted-foreground">{label}</dt></div>)}</dl>
 
             {/* Education */}
             {about.data.education.length > 0 && (
@@ -77,7 +82,7 @@ function AboutPage() {
                   <GraduationCap className="size-5 text-primary" />
                   سوابق تحصیلی
                 </h2>
-                <div className="space-y-3">
+                <div className="profile-timeline space-y-3">
                   {about.data.education.map((edu, i) => (
                     <Card key={i}>
                       <CardContent className="flex flex-wrap items-center justify-between gap-2 p-5">
@@ -100,7 +105,7 @@ function AboutPage() {
                   <Briefcase className="size-5 text-primary" />
                   سوابق فعالیت
                 </h2>
-                <div className="space-y-3">
+                <div className="profile-timeline space-y-3">
                   {about.data.experience.map((exp, i) => (
                     <Card key={i}>
                       <CardContent className="flex flex-wrap items-center justify-between gap-2 p-5">
@@ -126,7 +131,7 @@ function AboutPage() {
                 <div className="flex flex-wrap gap-2">
                   {about.data.skills.map((skill) => (
                     <Badge key={skill} variant="outline" className="px-4 py-1.5 text-sm">
-                      {skill}
+                      {skill}{about.data?.skill_levels[skill] && <span className="mr-2 text-primary">· {about.data.skill_levels[skill]}</span>}
                     </Badge>
                   ))}
                 </div>

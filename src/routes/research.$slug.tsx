@@ -1,12 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { CalendarDays, ArrowRight, BookOpen } from "lucide-react";
+import { CalendarDays, ArrowRight, BookOpen, Clock } from "lucide-react";
+import { readingMinutes } from "@/lib/profile";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getArticleBySlug, getRelatedArticles, formatDateFa } from "@/lib/data";
+import { getArticleBySlug, getRelatedArticles, formatDateFa, articleImage } from "@/lib/data";
 
 export const Route = createFileRoute("/research/$slug")({
   loader: async ({ params }) => {
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/research/$slug")({
           { property: "og:title", content: loaderData.title },
           { property: "og:description", content: loaderData.excerpt ?? loaderData.title },
           { property: "og:type", content: "article" },
-          ...(loaderData.image_url
+          ...(loaderData.image_url?.startsWith("https://")
             ? [
                 { property: "og:image", content: loaderData.image_url },
                 { name: "twitter:image", content: loaderData.image_url },
@@ -78,6 +79,7 @@ function ArticlePage() {
 
         <header className="mt-6">
           <div className="flex flex-wrap items-center gap-3">
+            <span className="flex items-center gap-1 text-sm text-muted-foreground"><Clock className="size-4" />{readingMinutes(article.content).toLocaleString("fa-IR")} دقیقه مطالعه</span>
             {article.categories && <Badge>{article.categories.name}</Badge>}
             {article.published_at && (
               <span className="flex items-center gap-1 text-sm text-muted-foreground">
@@ -98,7 +100,7 @@ function ArticlePage() {
 
         {article.image_url && (
           <img
-            src={article.image_url}
+            src={articleImage(article.image_url) ?? undefined}
             alt={article.title}
             width={768}
             height={432}

@@ -17,6 +17,7 @@ import {
 import { getPublishedArticles, getCategories } from "@/lib/data";
 
 export const Route = createFileRoute("/research/")({
+  validateSearch: (search: Record<string, unknown>): { category?: string } => typeof search["category"] === "string" ? { category: search["category"] } : {},
   head: () => ({
     meta: [
       { title: "پژوهش‌ها و مقالات | ستایش رحمانی" },
@@ -37,7 +38,8 @@ function ResearchPage() {
   const categories = useQuery({ queryKey: ["categories"], queryFn: getCategories });
 
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<string>("all");
+  const initialSearch = Route.useSearch();
+  const [category, setCategory] = useState<string>(initialSearch.category ?? "all");
   const [sort, setSort] = useState<"newest" | "oldest" | "title">("newest");
   const [visible, setVisible] = useState(PAGE_SIZE);
 

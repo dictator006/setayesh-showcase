@@ -1,3 +1,4 @@
+import { adminHead } from "@/lib/metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FileText, FolderOpen, Mail, FlaskConical, Award } from "lucide-react";
@@ -7,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toFaDigits } from "@/lib/data";
 
 export const Route = createFileRoute("/admin/")({
+  head: () => adminHead("داشبورد"),
   component: AdminDashboard,
 });
 

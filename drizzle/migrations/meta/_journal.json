@@ -8,6 +8,20 @@
       "when": 1791476142451,
       "tag": "0000_init_site_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791628498900,
+      "tag": "0001_extend_profile_and_feedback",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791628559234,
+      "tag": "0002_profile_image_access",
+      "breakpoints": true
     }
   ]
 }

@@ -1,15 +1,10 @@
-# Roadmap — وب‌سایت شخصی ستایش رحمانی
+# Roadmap — Final website enhancements
 
-- [ ] فعال‌سازی Lovable Cloud (دیتابیس + احراز هویت)
-- [ ] طراحی دیتابیس: articles, categories, awards, research_activities, contact_messages, site_settings, about + RLS
-- [ ] تم رنگی، فونت فارسی، RTL، دارک مود
-- [ ] Layout عمومی: Header، Footer، Navigation، Theme Toggle
-- [ ] صفحه اصلی /
-- [ ] صفحه درباره من /about
-- [ ] صفحه پژوهش‌ها /research (جستجو، فیلتر، دسته‌بندی)
-- [ ] صفحه جزئیات مقاله /research/$slug + 404
-- [ ] صفحه تماس /contact + ذخیره پیام در دیتابیس
-- [ ] ورود مدیر /admin/login + گارد احراز هویت
-- [ ] پنل مدیریت /admin: داشبورد، مقالات، دسته‌بندی‌ها، درباره، فعالیت‌ها، افتخارات، پیام‌ها، تنظیمات
-- [ ] SEO (head برای هر صفحه)، sitemap، robots
-- [ ] تست نهایی: build، روت‌ها، فرم‌ها، CRUD
+- [x] Scroll reveal and six linked research category cards
+- [x] Six sourced educational articles with images and reading time
+- [x] Six-tab About editor, private-storage profile upload and editable social links
+- [x] Public About timelines, skill levels and database-derived statistics
+- [x] Contact and feedback forms, validation and admin message display
+- [x] Seven automated tests; public/mobile pages, admin save, upload, feedback and awards CRUD verified
+- [x] Latest automatic build and TypeScript checks passed
+- [ ] Real owner photo, scientific profile links and verified biography/credentials — awaiting user-provided information; existing sample records preserved

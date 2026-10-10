@@ -13,6 +13,11 @@ export const Route = createFileRoute("/admin/login")({
   head: () => ({
     meta: [
       { title: "ورود مدیر | ستایش رحمانی" },
+      { name: "description", content: "ورود امن مدیر وب‌سایت ستایش رحمانی." },
+      { property: "og:title", content: "ورود مدیر | ستایش رحمانی" },
+      { property: "og:description", content: "ورود امن برای مدیریت محتوا." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),
