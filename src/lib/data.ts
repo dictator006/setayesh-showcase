@@ -1,3 +1,4 @@
+import { contactSchema } from "@/lib/contact-schema";
 import { supabase } from "@/integrations/supabase/client";
 import brainImage from "@/assets/neuroscience.jpg";
 import learningImage from "@/assets/deep-learning.jpg";
@@ -165,7 +166,7 @@ export async function submitContactMessage(input: {
   kind?: "contact" | "feedback";
   rating?: number | null;
 }): Promise<void> {
-  const { error } = await supabase.from("contact_messages").insert(input);
+  const { error } = await supabase.from("contact_messages").insert(contactSchema.parse(input));
   if (error) throw error;
 }
 
