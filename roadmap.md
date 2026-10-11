@@ -15,6 +15,6 @@
 - [x] Desktop/mobile and both themes visually checked; mouse effects, reduced-motion pause, seven tests and automatic build verified
 
 ## Academic journey
-- [ ] Database-derived educational, professional, publication and award milestones without invented achievements
-- [ ] Scroll-driven beam, alternating RTL cards and mobile layout with reduced-motion support
-- [ ] Verify scroll progression, themes, mobile and automated tests
+- [x] Database-derived educational, professional, publication and award milestones without invented achievements
+- [x] Scroll-driven beam, alternating RTL cards and mobile layout with reduced-motion support
+- [x] Verified scroll progression, themes, mobile, reduced motion, eleven tests and automatic build
