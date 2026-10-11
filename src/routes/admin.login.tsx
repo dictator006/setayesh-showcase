@@ -1,7 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-import { LogIn } from "lucide-react";
+import { ArrowRight, LogIn } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { isAdmin } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
@@ -91,6 +91,16 @@ function AdminLoginPage() {
               {loading ? "در حال ورود…" : "ورود"}
             </Button>
           </form>
+
+          <div className="mt-6 border-t border-border pt-4 text-center">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              <ArrowRight className="size-4" />
+              بازگشت به صفحه اصلی
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>
