@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, Link, useNavigate, useRouterState, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Link, useNavigate, useRouter, useRouterState, redirect } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
@@ -39,6 +39,7 @@ const ADMIN_NAV = [
 
 function AdminLayout() {
   const navigate = useNavigate();
+  const router = useRouter();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [status, setStatus] = useState<"loading" | "ok">("loading");
   const [open, setOpen] = useState(false);
@@ -51,16 +52,22 @@ function AdminLayout() {
     (async () => {
       const { data } = await supabase.auth.getUser();
       const user = data.user;
-      if (!user || !(await isAdmin(user.id))) {
-        if (!cancelled) navigate({ to: "/admin/login", replace: true });
+      const allowed = !!user && (await isAdmin(user.id));
+      if (cancelled) return;
+      // The pathname flips while a navigation away is still settling, so re-read
+      // the live location before pushing anyone back to the login screen.
+      const path = router.state.location.pathname;
+      const stillInAdmin = path.startsWith("/admin") && path !== "/admin/login";
+      if (!allowed) {
+        if (stillInAdmin) navigate({ to: "/admin/login", replace: true });
         return;
       }
-      if (!cancelled) setStatus("ok");
+      if (stillInAdmin) setStatus("ok");
     })();
     return () => {
       cancelled = true;
     };
-  }, [navigate, isLoginPage]);
+  }, [navigate, router, isLoginPage]);
 
   if (isLoginPage) {
     return <Outlet />;
