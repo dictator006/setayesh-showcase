@@ -13,3 +13,8 @@
 - [x] Interactive, theme-aware hero neural canvas with reduced-motion and offscreen pause
 - [x] Shared glass, border beam and pointer spotlight for featured and article cards
 - [x] Desktop/mobile and both themes visually checked; mouse effects, reduced-motion pause, seven tests and automatic build verified
+
+## Academic journey
+- [x] Database-derived educational, professional, publication and award milestones without invented achievements
+- [x] Scroll-driven beam, alternating RTL cards and mobile layout with reduced-motion support
+- [x] Verified scroll progression, themes, mobile, reduced motion, eleven tests and automatic build
