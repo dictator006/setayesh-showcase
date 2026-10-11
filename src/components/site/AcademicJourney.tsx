@@ -33,7 +33,7 @@ function MilestoneCard({ item }: { item: JourneyMilestone }) {
 }
 
 export function AcademicJourney({ milestones, loading, failed }: { milestones: JourneyMilestone[]; loading: boolean; failed: boolean }) {
-  const ref = useRef<HTMLOListElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
@@ -61,7 +61,7 @@ export function AcademicJourney({ milestones, loading, failed }: { milestones: J
       window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule);
       document.removeEventListener("visibilitychange", schedule); motion.removeEventListener("change", update);
     };
-  }, [milestones.length]);
+  }, [milestones.length, loading, failed]);
 
   return <section aria-labelledby="journey-heading" className="journey-section py-14 md:py-20">
     <div className="mx-auto max-w-6xl px-4">
@@ -72,13 +72,15 @@ export function AcademicJourney({ milestones, loading, failed }: { milestones: J
       {loading ? <div className="space-y-6" aria-busy="true" aria-label="در حال دریافت مسیر علمی">{[0, 1, 2].map(i => <div key={i} className="h-32 animate-pulse rounded-lg bg-muted motion-reduce:animate-none" />)}</div>
         : failed ? <p className="py-8 text-center text-muted-foreground" role="status">دریافت بخشی از اطلاعات مسیر علمی ممکن نشد.</p>
         : milestones.length === 0 ? <p className="py-8 text-center text-muted-foreground">هنوز نقطه عطفی ثبت نشده است.</p>
-        : <ol ref={ref} className="journey-timeline">
+        : <div ref={ref} className="journey-timeline">
           <div className="journey-track" aria-hidden="true"><div className="journey-beam" /></div>
+          <ol className="m-0 list-none p-0">
           {milestones.map(item => <li key={item.id} className="journey-item">
             <span className="journey-node" aria-hidden="true" />
             <ScrollReveal className="journey-reveal"><MilestoneCard item={item} /></ScrollReveal>
           </li>)}
-        </ol>}
+          </ol>
+        </div>}
     </div>
   </section>;
 }
