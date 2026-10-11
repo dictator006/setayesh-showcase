@@ -10,6 +10,6 @@
 - [ ] Real owner photo, scientific profile links and verified biography/credentials — awaiting user-provided information; existing sample records preserved
 
 ## Neural visual effects
-- [ ] Interactive, theme-aware hero neural canvas with reduced-motion and offscreen pause
-- [ ] Shared glass, border beam and pointer spotlight for featured and article cards
-- [ ] Verify rendering, interactions and existing tests
+- [x] Interactive, theme-aware hero neural canvas with reduced-motion and offscreen pause
+- [x] Shared glass, border beam and pointer spotlight for featured and article cards
+- [x] Desktop/mobile and both themes visually checked; mouse effects, reduced-motion pause, seven tests and automatic build verified
