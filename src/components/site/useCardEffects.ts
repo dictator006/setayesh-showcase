@@ -7,7 +7,7 @@ export function useCardEffects<T extends HTMLElement>() {
     const element = ref.current;
     if (!element) return;
     const observer = new IntersectionObserver(([entry]) => {
-      element.dataset.effectVisible = String(entry.isIntersecting);
+      element.dataset["effectVisible"] = String(entry?.isIntersecting ?? false);
     });
     observer.observe(element);
     return () => observer.disconnect();
@@ -20,8 +20,8 @@ export function useCardEffects<T extends HTMLElement>() {
       const rect = element.getBoundingClientRect();
       element.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
       element.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
-      element.dataset.spotlight = "true";
+      element.dataset["spotlight"] = "true";
     },
-    onPointerLeave: (event: PointerEvent<T>) => { delete event.currentTarget.dataset.spotlight; },
+    onPointerLeave: (event: PointerEvent<T>) => { delete event.currentTarget.dataset["spotlight"]; },
   };
 }

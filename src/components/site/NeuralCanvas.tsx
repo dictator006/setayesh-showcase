@@ -30,8 +30,10 @@ export function NeuralCanvas() {
       });
       for (let i = 0; i < points.length; i++) {
         const a = points[i];
+        if (!a) continue;
         for (let j = i + 1; j < points.length; j++) {
           const b = points[j];
+          if (!b) continue;
           const distance = Math.hypot(a.x - b.x, a.y - b.y);
           if (distance > 155) continue;
           ctx.globalAlpha = (1 - distance / 155) * (a.near || b.near ? .48 : .26);
@@ -81,7 +83,7 @@ export function NeuralCanvas() {
     };
     const leave = () => { pointer.x = -1000; pointer.y = -1000; };
     const sizing = new ResizeObserver(resize);
-    const intersection = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
+    const intersection = new IntersectionObserver(([entry]) => { visible = entry?.isIntersecting ?? false; sync(); });
     const themes = new MutationObserver(theme);
     theme(); resize(); sizing.observe(host); intersection.observe(host);
     themes.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
