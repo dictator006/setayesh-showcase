@@ -74,6 +74,8 @@
   --beam-tail: oklch(0.7 0.1 165);
   --spotlight: color-mix(in oklch, var(--primary) 12%, transparent);
   --effect-shadow: 0 8px 28px color-mix(in oklch, var(--foreground) 6%, transparent);
+  --journey-glow: 0 0 14px color-mix(in oklch, var(--beam-core) 45%, transparent);
+  --journey-surface: color-mix(in oklch, var(--secondary) 35%, var(--background));
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -175,6 +177,23 @@
 .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translateY(24px); }
 .scroll-reveal[data-reveal="visible"] { opacity: 1; transform: translateY(0); }
 .profile-editor-tabs { scrollbar-width: thin; }
+.journey-section { background: var(--journey-surface); }
+.journey-timeline { position: relative; --journey-progress: 0; margin: 0; padding: 0 0 2rem; list-style: none; }
+.journey-track { position: absolute; inset-inline-start: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(50%); background: var(--border); pointer-events: none; }
+.journey-beam { position: relative; width: 100%; height: calc(var(--journey-progress) * 100%); background: linear-gradient(to bottom, var(--beam-tail), var(--beam-core)); box-shadow: var(--journey-glow); }
+.journey-beam::after { content: ""; position: absolute; bottom: 0; left: 50%; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, 50%); background: var(--beam-core); box-shadow: var(--journey-glow); }
+.journey-item { display: grid; grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); position: static; padding-bottom: 1.5rem; }
+.journey-reveal { grid-column: 1; position: relative; }
+.journey-item:nth-of-type(even) .journey-reveal { grid-column: 3; }
+.journey-reveal::after { content: ""; position: absolute; top: 35px; inset-inline-end: -32px; width: 32px; height: 1px; background: var(--border); }
+.journey-item:nth-of-type(even) .journey-reveal::after { inset-inline-end: auto; inset-inline-start: -32px; }
+.journey-node { position: absolute; inset-inline-start: 50%; width: 12px; height: 12px; margin-top: 30px; transform: translateX(50%); border: 2px solid var(--border); border-radius: 50%; background: var(--background); z-index: 3; transition: background 250ms ease, border-color 250ms ease, box-shadow 250ms ease; }
+.journey-node[data-lit="true"] { background: var(--beam-core); border-color: var(--beam-core); box-shadow: var(--journey-glow); }
+@media (max-width: 767px) {
+  .journey-track, .journey-node { inset-inline-start: 8px; }
+  .journey-item { display: block; padding-inline-start: 36px; }
+  .journey-reveal::after, .journey-item:nth-of-type(even) .journey-reveal::after { width: 28px; inset-inline-start: -28px; inset-inline-end: auto; }
+}
 .neural-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
 @property --beam-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
@@ -228,4 +247,5 @@
   .scroll-reveal[data-reveal="pending"] { opacity: 1; transform: none; }
   .luminous-card::before { animation: none; opacity: .3; }
   .luminous-card::after { transition: none; }
+  .journey-node { transition: none; }
 }

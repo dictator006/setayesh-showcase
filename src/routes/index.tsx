@@ -4,6 +4,8 @@ import { ArrowLeft, Mail, Award, FlaskConical, UserRound, Brain, Network, Cpu, A
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { NeuralCanvas } from "@/components/site/NeuralCanvas";
 import { FeaturedCategory } from "@/components/site/FeaturedCategory";
+import { AcademicJourney } from "@/components/site/AcademicJourney";
+import { buildJourney } from "@/lib/journey";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { ArticleCardSkeleton, EmptyState } from "@/components/site/States";
@@ -47,6 +49,7 @@ function HomePage() {
   const categories = useQuery({ queryKey: ["categories"], queryFn: getCategories });
   const categoryIcons = [Brain, Cpu, Network, Layers, Scan, Activity];
   const latestArticles = (articles.data ?? []).slice(0, 3);
+  const milestones = buildJourney(about.data, articles.data ?? [], activities.data ?? [], awards.data ?? []);
 
   return (
     <SiteLayout>
@@ -130,6 +133,8 @@ function HomePage() {
           </div>
         )}
       </section></ScrollReveal>
+
+      <AcademicJourney milestones={milestones} loading={about.isLoading || articles.isLoading || activities.isLoading || awards.isLoading} failed={about.isError || articles.isError || activities.isError || awards.isError} />
 
       {/* Research activities */}
       <ScrollReveal><section className="bg-secondary/50 py-14">

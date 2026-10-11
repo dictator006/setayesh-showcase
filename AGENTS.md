@@ -17,3 +17,5 @@
 - Use a shared IntersectionObserver reveal wrapper that respects reduced motion and leaves SSR content visible; animations must not block access to content.
 - Keep decorative neural rendering client-side, density/DPR bounded and paused offscreen or in hidden tabs; preserves SSR safety and battery life.
 - Apply card lighting through the shared pointer-effects hook and semantic CSS tokens without wrapper cards; keeps article and featured-category styling consistent across themes.
+- Derive academic journey milestones from existing profile, activities, awards and published site articles, labeling site publications without claiming authorship; avoids fabricated credentials or laboratories.
+- Update journey scroll geometry through passive events and visibility-gated animation frames, with full static illumination for reduced motion; avoids per-scroll React renders and preserves accessibility.
