@@ -15,3 +15,5 @@
 - Share contact validation between form and data writes, with a database validation trigger; direct client writes cannot bypass input rules.
 - Reuse the existing awards and activities CRUD inside profile tabs; avoids duplicate management logic and keeps public caches synchronized.
 - Use a shared IntersectionObserver reveal wrapper that respects reduced motion and leaves SSR content visible; animations must not block access to content.
+- Keep decorative neural rendering client-side, density/DPR bounded and paused offscreen or in hidden tabs; preserves SSR safety and battery life.
+- Apply card lighting through the shared pointer-effects hook and semantic CSS tokens without wrapper cards; keeps article and featured-category styling consistent across themes.

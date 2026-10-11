@@ -2,12 +2,14 @@ import { Link } from "@tanstack/react-router";
 import { CalendarDays, ArrowLeft, BookOpen, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useCardEffects } from "./useCardEffects";
 import { readingMinutes } from "@/lib/profile";
 import { formatDateFa, articleImage, type Article } from "@/lib/data";
 
 export function ArticleCard({ article }: { article: Article }) {
+  const effects = useCardEffects<HTMLDivElement>();
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <Card {...effects} className="luminous-card group h-full overflow-hidden transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none">
       <Link
         to="/research/$slug"
         params={{ slug: article.slug }}

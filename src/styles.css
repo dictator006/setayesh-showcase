@@ -68,6 +68,12 @@
   --border: oklch(0.9 0.01 240);
   --input: oklch(0.9 0.01 240);
   --ring: oklch(0.45 0.09 215);
+  --neural-ink: oklch(0.45 0.09 215);
+  --glass-surface: color-mix(in oklch, var(--card) 80%, transparent);
+  --beam-core: oklch(0.66 0.12 205);
+  --beam-tail: oklch(0.7 0.1 165);
+  --spotlight: color-mix(in oklch, var(--primary) 12%, transparent);
+  --effect-shadow: 0 8px 28px color-mix(in oklch, var(--foreground) 6%, transparent);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -103,6 +109,11 @@
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
   --ring: oklch(0.75 0.1 210);
+  --neural-ink: oklch(0.75 0.1 210);
+  --glass-surface: color-mix(in oklch, var(--card) 76%, transparent);
+  --beam-core: oklch(0.8 0.12 205);
+  --beam-tail: oklch(0.76 0.12 165);
+  --spotlight: color-mix(in oklch, var(--primary) 16%, transparent);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -142,7 +153,6 @@
 @utility glass {
   background: color-mix(in oklch, var(--card) 70%, transparent);
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
 }
 
@@ -165,6 +175,48 @@
 .scroll-reveal[data-reveal="pending"] { opacity: 0; transform: translateY(24px); }
 .scroll-reveal[data-reveal="visible"] { opacity: 1; transform: translateY(0); }
 .profile-editor-tabs { scrollbar-width: thin; }
+.neural-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+@property --beam-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.luminous-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 8px;
+  background: var(--glass-surface);
+  backdrop-filter: blur(14px) saturate(115%);
+  box-shadow: var(--effect-shadow);
+}
+.luminous-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from var(--beam-angle), transparent 0% 76%, var(--beam-tail) 87%, var(--beam-core) 93%, transparent 100%);
+  mask: linear-gradient(var(--foreground) 0 0) content-box, linear-gradient(var(--foreground) 0 0);
+  mask-composite: exclude;
+  opacity: .55;
+  animation: border-orbit 9s linear infinite;
+  animation-play-state: paused;
+}
+.luminous-card[data-effect-visible="true"]::before { animation-play-state: running; }
+.luminous-card:nth-child(even)::before { animation-delay: -4s; }
+.luminous-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), var(--spotlight), transparent 72%);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+.luminous-card[data-spotlight="true"]::after, .luminous-card:focus-within::after { opacity: 1; }
+@keyframes border-orbit { to { --beam-angle: 360deg; } }
+@media (hover: none) { .luminous-card::after { display: none; } }
 .profile-editor-panel { border: 1px solid var(--border); background: var(--card); border-radius: 8px; padding: 2rem; }
 .profile-timeline { border-inline-start: 2px solid var(--border); padding-inline-start: 1.5rem; }
 .profile-timeline > * { position: relative; }
@@ -174,4 +226,6 @@
   html { scroll-behavior: auto; }
   .scroll-reveal, .animate-fade-up { animation: none; transition: none; opacity: 1; transform: none; }
   .scroll-reveal[data-reveal="pending"] { opacity: 1; transform: none; }
+  .luminous-card::before { animation: none; opacity: .3; }
+  .luminous-card::after { transition: none; }
 }
