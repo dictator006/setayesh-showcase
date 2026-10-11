@@ -8,3 +8,8 @@
 - [x] Seven automated tests; public/mobile pages, admin save, upload, feedback and awards CRUD verified
 - [x] Latest automatic build and TypeScript checks passed
 - [ ] Real owner photo, scientific profile links and verified biography/credentials — awaiting user-provided information; existing sample records preserved
+
+## Neural visual effects
+- [x] Interactive, theme-aware hero neural canvas with reduced-motion and offscreen pause
+- [x] Shared glass, border beam and pointer spotlight for featured and article cards
+- [x] Desktop/mobile and both themes visually checked; mouse effects, reduced-motion pause, seven tests and automatic build verified

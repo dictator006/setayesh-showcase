@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Mail, Award, FlaskConical, UserRound, Brain, Network, Cpu, Activity, Scan, Layers } from "lucide-react";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
+import { NeuralCanvas } from "@/components/site/NeuralCanvas";
+import { FeaturedCategory } from "@/components/site/FeaturedCategory";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { ArticleCardSkeleton, EmptyState } from "@/components/site/States";
@@ -49,12 +51,9 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_0%,var(--color-accent)_0%,transparent_100%)] opacity-60"
-        />
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-16 md:flex-row md:py-24">
+      <section className="relative isolate overflow-hidden">
+        <NeuralCanvas />
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-16 md:flex-row md:py-24">
           <div className="animate-fade-up flex-1 text-center md:text-right">
             <span className="inline-block rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
               {about.data?.tagline ?? "پژوهشگر و مدرس دانشگاه"}
@@ -102,7 +101,7 @@ function HomePage() {
 
       <ScrollReveal><section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="mb-6 text-2xl font-bold">حوزه‌های پژوهشی</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{(categories.data ?? []).filter(c => c.featured).sort((a,b) => a.sort_order - b.sort_order).slice(0,6).map((c,i) => { const Icon = categoryIcons[i] ?? Brain; return <ScrollReveal key={c.id}><Link to="/research" search={{ category: c.slug }} className="group flex h-full items-start gap-4 rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary focus-visible:ring-2 focus-visible:ring-ring"><Icon className="mt-1 size-7 shrink-0 text-primary" /><div><h3 className="font-bold group-hover:text-primary">{c.name}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{c.description}</p></div><ArrowLeft className="mr-auto mt-1 size-4 shrink-0 text-muted-foreground" /></Link></ScrollReveal>; })}</div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{(categories.data ?? []).filter(c => c.featured).sort((a,b) => a.sort_order - b.sort_order).slice(0,6).map((c,i) => <ScrollReveal key={c.id}><FeaturedCategory category={c} icon={categoryIcons[i] ?? Brain} /></ScrollReveal>)}</div>
       </section></ScrollReveal>
       {/* Latest articles */}
       <ScrollReveal><section className="mx-auto max-w-6xl px-4 py-14">
