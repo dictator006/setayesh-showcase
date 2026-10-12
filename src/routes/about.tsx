@@ -84,7 +84,7 @@ function AboutPage() {
                 </h2>
                 <div className="profile-timeline space-y-3">
                   {about.data.education.map((edu, i) => (
-                    <Card key={i}>
+                    <Card key={i} className="about-hover">
                       <CardContent className="flex flex-wrap items-center justify-between gap-2 p-5">
                         <div>
                           <h3 className="font-semibold text-foreground">{edu.title}</h3>
@@ -107,7 +107,7 @@ function AboutPage() {
                 </h2>
                 <div className="profile-timeline space-y-3">
                   {about.data.experience.map((exp, i) => (
-                    <Card key={i}>
+                    <Card key={i} className="about-hover">
                       <CardContent className="flex flex-wrap items-center justify-between gap-2 p-5">
                         <div>
                           <h3 className="font-semibold text-foreground">{exp.title}</h3>
@@ -130,7 +130,7 @@ function AboutPage() {
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {about.data.skills.map((skill) => (
-                    <Badge key={skill} variant="outline" className="px-4 py-1.5 text-sm">
+                    <Badge key={skill} variant="outline" className="about-hover px-4 py-1.5 text-sm">
                       {skill}{about.data?.skill_levels[skill] && <span className="mr-2 text-primary">· {about.data.skill_levels[skill]}</span>}
                     </Badge>
                   ))}
@@ -157,7 +157,7 @@ function AboutPage() {
           ) : (
             <div className="space-y-3">
               {(activities.data ?? []).map((act) => (
-                <Card key={act.id}>
+                <Card key={act.id} className="about-hover">
                   <CardContent className="p-5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <h3 className="font-semibold text-foreground">{act.title}</h3>
@@ -188,7 +188,7 @@ function AboutPage() {
           ) : (
             <div className="space-y-3">
               {(awards.data ?? []).map((award) => (
-                <Card key={award.id}>
+                <Card key={award.id} className="about-hover">
                   <CardContent className="p-5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <h3 className="font-semibold text-foreground">{award.title}</h3>
