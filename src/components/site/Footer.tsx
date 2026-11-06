@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Mail } from "lucide-react";
+import { ExternalLink, GraduationCap, Mail } from "lucide-react";
 
-export function Footer({ email }: { email?: string | undefined }) {
+export function Footer({ email, instagram }: { email?: string | undefined; instagram?: string | undefined }) {
   return (
     <footer className="mt-20 border-t border-border bg-card">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
@@ -35,6 +35,12 @@ export function Footer({ email }: { email?: string | undefined }) {
             >
               <Mail className="size-4" />
               <span dir="ltr">{email}</span>
+            </a>
+          )}
+          {instagram && (
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+              <ExternalLink className="size-4" />
+              <span dir="ltr">Instagram</span>
             </a>
           )}
         </div>

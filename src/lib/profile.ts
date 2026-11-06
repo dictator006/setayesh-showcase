@@ -6,6 +6,7 @@ export const profileNetworks = [
   { key: "orcid", label: "ORCID" },
   { key: "linkedin", label: "LinkedIn" },
   { key: "github", label: "GitHub" },
+  { key: "instagram", label: "Instagram" },
   { key: "email", label: "Email" },
 ] as const;
 
